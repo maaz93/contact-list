@@ -5,9 +5,15 @@ import AppAPI from "../utils/appAPI";
 
 const CHANGE_EVENT = "change";
 
-let _movies = [], _searchInProgress = false, _searchedOnce = false;
+let _contacts = [];
 
 const AppStore = Object.assign({}, EventEmitter.prototype, {
+    saveContact(contact) {
+        _contacts.push(contact);
+    },
+    getContacts() {
+        return _contacts;
+    },
     emitChange() {
         this.emit(CHANGE_EVENT);
     },
@@ -23,7 +29,10 @@ AppDispatcher.register((payload) => {
     const action = payload.action;
 
     switch (action.actionType) {
-
+        case AppConstants.SAVE_CONTACT:
+            AppStore.saveContact(action.contact);
+            AppStore.emitChange();
+            break;
     };
     return true;
 });
