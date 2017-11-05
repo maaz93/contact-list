@@ -15,6 +15,7 @@ class AddForm extends React.Component {
             phone: this.refs.phone.value.trim(),
             email: this.refs.email.value.trim()
         };
+        this.refs.addForm.reset();
         AppActions.saveContact(contact);
     }
 
@@ -22,7 +23,7 @@ class AddForm extends React.Component {
         return (
             <div className="well">
                 <h3>Add Contact</h3>
-                <form onSubmit={this.handleSubmit}>
+                <form ref="addForm" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <input type="text" ref="name" className="form-control" placeholder="Add Contact Name..." />
                     </div>
