@@ -1,6 +1,7 @@
 import React from "react";
 import AppStore from "../stores/AppStore";
 import AddForm from "./AddForm";
+import ContactList from "./ContactList";
 
 class App extends React.Component {
 
@@ -30,6 +31,7 @@ class App extends React.Component {
         return (
             <div>
                 <AddForm />
+                <ContactList contacts={this.state.contacts} />
             </div>
         );
     }

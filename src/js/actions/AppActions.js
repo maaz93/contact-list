@@ -7,6 +7,18 @@ const AppActions = {
             actionType: AppConstants.SAVE_CONTACT,
             contact
         });
+    },
+    receiveContacts(contacts) {
+        AppDispatcher.handleViewAction({
+            actionType: AppConstants.RECEIVE_CONTACTS,
+            contacts
+        });
+    },
+    removeContact(id) {
+        AppDispatcher.handleViewAction({
+            actionType: AppConstants.REMOVE_CONTACT,
+            id
+        });
     }
 };
 

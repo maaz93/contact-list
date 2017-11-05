@@ -14,6 +14,14 @@ const AppStore = Object.assign({}, EventEmitter.prototype, {
     getContacts() {
         return _contacts;
     },
+    setContacts(contacts) {
+        _contacts = contacts;
+    },
+    removeContact(id) {
+        _contacts = _contacts.filter((contact) => {
+            return contact.id !== id;
+        });
+    },
     emitChange() {
         this.emit(CHANGE_EVENT);
     },
@@ -30,8 +38,20 @@ AppDispatcher.register((payload) => {
 
     switch (action.actionType) {
         case AppConstants.SAVE_CONTACT:
+            console.log("Saving contact...");
             AppStore.saveContact(action.contact);
             AppAPI.saveContact(action.contact);
+            AppStore.emitChange();
+            break;
+        case AppConstants.RECEIVE_CONTACTS:
+            console.log("Receiving contacts...");
+            AppStore.setContacts(action.contacts);
+            AppStore.emitChange();
+            break;
+        case AppConstants.REMOVE_CONTACT:
+            console.log("Removing contact...");
+            AppStore.removeContact(action.id);
+            AppAPI.removeContact(action.id);
             AppStore.emitChange();
             break;
     };
