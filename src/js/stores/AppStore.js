@@ -31,6 +31,7 @@ AppDispatcher.register((payload) => {
     switch (action.actionType) {
         case AppConstants.SAVE_CONTACT:
             AppStore.saveContact(action.contact);
+            AppAPI.saveContact(action.contact);
             AppStore.emitChange();
             break;
     };

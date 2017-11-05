@@ -60,3 +60,6 @@ typings/
 # Compiled project
 dist
 
+# Firebase config
+**/FIREBASE_CONFIG.js
+
