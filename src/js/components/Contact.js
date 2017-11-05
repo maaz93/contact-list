@@ -10,7 +10,7 @@ class Contact extends React.Component {
     }
 
     handleEdit(e) {
-
+        AppActions.editContact(this.props.contact);
     }
 
     handleRemove(e) {

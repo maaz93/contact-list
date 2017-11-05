@@ -19,7 +19,20 @@ const AppActions = {
             actionType: AppConstants.REMOVE_CONTACT,
             id
         });
-    }
+    },
+    editContact(contact) {
+        AppDispatcher.handleViewAction({
+            actionType: AppConstants.EDIT_CONTACT,
+            contact
+        });
+    },
+    updateContact(contact) {
+        AppDispatcher.handleViewAction({
+            actionType: AppConstants.UPDATE_CONTACT,
+            contact
+        });
+    },
+
 };
 
 export default AppActions;

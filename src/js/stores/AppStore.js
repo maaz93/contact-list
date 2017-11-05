@@ -5,7 +5,7 @@ import AppAPI from "../utils/appAPI";
 
 const CHANGE_EVENT = "change";
 
-let _contacts = [];
+let _contacts = [], _contactToEdit = null;
 
 const AppStore = Object.assign({}, EventEmitter.prototype, {
     saveContact(contact) {
@@ -20,6 +20,17 @@ const AppStore = Object.assign({}, EventEmitter.prototype, {
     removeContact(id) {
         _contacts = _contacts.filter((contact) => {
             return contact.id !== id;
+        });
+    },
+    setContactToEdit(contact) {
+        _contactToEdit = contact;
+    },
+    getContactToEdit() {
+        return _contactToEdit;
+    },
+    updateContact(updatedContact) {
+        _contacts = _contacts.map((contact) => {
+            return updatedContact.id === contact.id ? updatedContact : contact;
         });
     },
     emitChange() {
@@ -53,6 +64,17 @@ AppDispatcher.register((payload) => {
             console.log("Removing contact...");
             AppStore.removeContact(action.id);
             AppAPI.removeContact(action.id);
+            AppStore.emitChange();
+            break;
+        case AppConstants.EDIT_CONTACT:
+            console.log("Editing contact...");
+            AppStore.setContactToEdit(action.contact);
+            AppStore.emitChange();
+            break;
+        case AppConstants.UPDATE_CONTACT:
+            console.log("Updating contact...");
+            AppStore.updateContact(action.contact);
+            AppAPI.updateContact(action.contact);
             AppStore.emitChange();
             break;
     };

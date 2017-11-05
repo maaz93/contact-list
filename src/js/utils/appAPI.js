@@ -26,5 +26,12 @@ export default {
     },
     removeContact(id) {
         contactsRef.child(id).remove();
+    },
+    updateContact({ id, name, phone, email }) {
+        contactsRef.child(`${id}/contact`).set({
+            name,
+            phone,
+            email
+        });
     }
 }
