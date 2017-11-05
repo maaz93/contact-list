@@ -39,9 +39,10 @@ AppDispatcher.register((payload) => {
     switch (action.actionType) {
         case AppConstants.SAVE_CONTACT:
             console.log("Saving contact...");
-            AppStore.saveContact(action.contact);
-            AppAPI.saveContact(action.contact);
-            AppStore.emitChange();
+            AppAPI.saveContact(action.contact).then(({ key: id }) => {
+                AppStore.saveContact(Object.assign({}, action.contact, { id }));
+                AppStore.emitChange();
+            });
             break;
         case AppConstants.RECEIVE_CONTACTS:
             console.log("Receiving contacts...");

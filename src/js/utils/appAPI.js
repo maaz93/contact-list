@@ -8,7 +8,7 @@ const contactsRef = firebase.database().ref("contacts");
 
 export default {
     saveContact(contact) {
-        firebase.database().ref().child("contacts").push({ contact });
+        return firebase.database().ref().child("contacts").push({ contact });
     },
     getContacts() {
         contactsRef.once("value").then((snapshot) => {
